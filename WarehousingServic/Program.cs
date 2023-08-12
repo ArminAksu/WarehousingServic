@@ -23,6 +23,10 @@ internal class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddScoped<IProductFeatureRepository, ProductFeatureRepository>();
+        builder.Services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
+        builder.Services.AddScoped<IReceiptFeatureRepository, ReceiptFeatureRepository>();
+        builder.Services.AddScoped<IRemittanceFeatureRepository, RemittanceFeatureRepository>();
         builder.Services.AddDbContext<DataContext>(Options =>
         {
             Options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -31,10 +35,6 @@ internal class Program
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            builder.Services.AddScoped<IProductFeatureRepository, ProductFeatureRepository>();
-            builder.Services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
-            builder.Services.AddScoped<IReceiptFeatureRepository, ReceiptFeatureRepository>();
-            builder.Services.AddScoped<IRemittanceFeatureRepository, RemittanceFeatureRepository>();
         }).AddJwtBearer(options =>
         {
             options.RequireHttpsMetadata = false;
