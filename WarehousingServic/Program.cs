@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Text;
 using WarehousingServic;
 using WarehousingServic.Data;
+using WarehousingServic.Repository;
 
 internal class Program
 {
@@ -30,6 +31,10 @@ internal class Program
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            builder.Services.AddScoped<IProductFeatureRepository, ProductFeatureRepository>();
+            builder.Services.AddScoped<IProductGroupRepository, ProductGroupRepository>();
+            builder.Services.AddScoped<IReceiptFeatureRepository, ReceiptFeatureRepository>();
+            builder.Services.AddScoped<IRemittanceFeatureRepository, RemittanceFeatureRepository>();
         }).AddJwtBearer(options =>
         {
             options.RequireHttpsMetadata = false;
